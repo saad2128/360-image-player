@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>360 Image Player</title>
+          <!-- Compiled and minified CSS to run application offline-->
+    <link rel="stylesheet" href="./css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript run offline also -->
+    <script src="./js/materialize.min.js"></script>
+    <script src="./js/three.min.js"></script>
+
+   
+
+    <style>
+
+        body{
+         margin:0;
+         overflow: hidden;
+        }
+
+        .ful-screen{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+    </style>
+            
+        
+    </head>
+
+    <body>
+        <div id="webglviewer" class="full-screen"></div>
+     
+        <script>
+            var renderer = new THREE.WebGLRenderer();
+
+            renderer.setPixelRatio(window.devicePixelRatio);
+            
+            renderer.setSize(window.innerWidth,window.innerHeight);
+
+            document.getElementById('webglviewer').appendChild(renderer.domElement);
+
+            var scene = new THREE.Scene();
+
+            var camera = new THREE.PerspectiveCamera(
+
+             75,
+             window.innerWidth/window.innerHeight,
+             1,
+             100000000
+            )
+
+            camera.position.set(0,0,0);
+            camera.lookAt(10,0,0);
+
+            
+
+            var loader = new THREE.TextureLoader();
+
+// load a resource
+loader.load(
+	// resource URL
+	'https://s3-us-west-2.amazonaws.com/farsight-v2/40a4630641baf24e25acd828586355bc/67e131a565bdf9dcee49629429426e0c/5.jpg',
+
+	// onLoad callback
+	function ( texture ) {
+		// in this example we create the material when the texture is loaded
+		var material = new THREE.MeshBasicMaterial( {
+			map: texture
+		 } );
+
+         var geometry =  new THREE.SphereBufferGeometry(3,32,32);
+         geometry.scale(-1,1,1);
+         var sphere = new THREE.Mesh(geometry,material);
+         sphere.position.set(0,0,0);
+         scene.add(sphere);
+         renderer.render(scene,camera);
+	}
+);
+           
+            renderer.render(scene,camera);
+        </script>
+
+    </body>
+</html>
