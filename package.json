@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/saad2128/360-image-player#readme",
   "devDependencies": {
-    "electron": "^6.0.2"
+    "electron": "^9.4.0"
   }
 }
